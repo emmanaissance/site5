@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <title>القاعدة الجوية بصفاقس</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #1a56a7;
+      --primary-dark: #13407d;
+      --secondary-color: #f5f5f5;
+      --text-color: #333;
+      --light-gray: #f8f9fa;
+      --white: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Tajawal', Arial, sans-serif;
+      background-color: var(--light-gray);
+      color: var(--text-color);
+      direction: rtl;
+      line-height: 1.6;
+    }
+
+    #passwordBox {
+      max-width: 500px;
+      margin: 100px auto;
+      padding: 2.5rem;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    #passwordBox h2 {
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      margin: 1rem 0;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    input[type="password"]:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(26, 86, 167, 0.2);
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 500;
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    #error {
+      color: #e74c3c;
+      display: none;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    /* Header Styles */
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: var(--white);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 10;
+      flex-wrap: wrap;
+    }
+
+    .header-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      padding: 0 10px;
+      min-width: 200px;
+    }
+
+    /* Main Content */
+    #content {
+  
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    section {
+      padding: 1rem;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .intro-section {
+      background-color: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      margin: 1rem auto;
+      padding: 1rem;
+    }
+
+    .intro-section p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    /* Carousel Styles */
+    .carousel-section {
+      margin: 2rem auto;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      width: 100%;
+      margin: 1rem auto;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      gap: 1rem;
+      padding: 1rem;
+      direction: ltr;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel img {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      aspect-ratio: 3/2;
+      object-fit: cover;
+      border-radius: 8px;
+      scroll-snap-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .carousel img:hover {
+      transform: scale(1.03);
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: none; /* Hidden by default on mobile */
+    }
+
+    .carousel-button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-button.left {
+      right: -20px;
+    }
+
+    .carousel-button.right {
+      left: -20px;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: var(--white);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (min-width: 480px) {
+      .header-logo {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .header-title {
+        font-size: 1.4rem;
+      }
+      
+      section {
+        padding: 1.5rem;
+      }
+      
+      .intro-section {
+        padding: 1.5rem;
+      }
+      
+      .carousel img {
+        max-width: 250px;
+      }
+      
+      .carousel-button {
+        display: flex;
+      }
+    }
+
+    @media (min-width: 768px) {
+      header {
+        padding: 1.5rem 2rem;
+      }
+      
+      .header-logo {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .header-title {
+        font-size: 1.8rem;
+      }
+      
+      section {
+        max-width: 1200px;
+        padding: 2rem;
+      }
+      
+      .intro-section {
+        padding: 2rem;
+        margin: 2rem auto;
+      }
+      
+      .intro-section p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .carousel {
+        gap: 1.5rem;
+        padding: 1.5rem;
+      }
+      
+      .carousel img {
+        max-width: 300px;
+      }
+      
+      .carousel-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+      
+      .carousel-button.left {
+        right: -25px;
+      }
+      
+      .carousel-button.right {
+        left: -25px;
+      }
+      
+      footer {
+        padding: 2rem;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      #passwordBox {
+        margin: 50px 15px;
+        padding: 1.5rem;
+      }
+      
+      .header-title {
+        font-size: 1rem;
+        min-width: 150px;
+      }
+      
+      .header-logo {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <header>
+      <img src="logo/emaa.png" alt="شعار القاعدة" class="header-logo">
+      <div class="header-title">القاعدة الجوية بصفاقس</div>
+      <img src="logo/bas.png" alt="شعار صفاقس" class="header-logo">
+    </header>
+
+    <section class="intro-section">
+      <h3><b>الإحتقال بالذكرى 60 لإنبعاث جيش الطيران </b></h3>
+    </section>
+      
+    <section class="carousel-section">
+      <h4>معرض الصور</h4>
+
+      
+      <div class="carousel-wrapper">
+        <button class="carousel-button left" onclick="scrollCarousel(-1)">&#10095;</button>
+
+        <div class="carousel" id="carousel">
+          <img src="images/image.jpg" alt="صورة 1">
+		  <img src="images/image1.jpg" alt="صورة 2">
+		  <img src="images/image2.jpg" alt="صورة 3">
+		  <img src="images/image3.jpg" alt="صورة 4">
+		  <img src="images/image4.jpg" alt="صورة 5">
+		  <img src="images/image5.jpg" alt="صورة 6">
+		  <img src="images/image6.jpg" alt="صورة 7">
+		  <img src="images/image7.jpg" alt="صورة 8">
+		  <img src="images/image8.jpg" alt="صورة 9">
+		  <img src="images/image9.jpg" alt="صورة 10">
+        </div>
+
+        <button class="carousel-button right" onclick="scrollCarousel(1)">&#10094;</button>
+      </div>
+    </section>
+      
+    <section style="text-align: center; padding: 1rem;">
+      <p style="font-size: 1.1rem; font-weight: 500; color: var(--primary-color);">
+        <strong>شكراً لزيارتكم ونرحب بكم دائماً في القاعدة الجوية بصفاقس</strong>
+      </p>
+    </section>
+    
+    <footer>
+       القاعدة الجوية بصفاقس - جميع الحقوق محفوظة &copy; 2025
+    </footer>
+  </div>
+
+  <script>
+
+
+    function scrollCarousel(direction) {
+      const container = document.getElementById("carousel");
+      const scrollAmount = 350; // Increased scroll amount for better UX
+      
+      container.scrollBy({
+        left: scrollAmount * direction,
+        behavior: "smooth"
+      });
+    }
+
+
+    // Add shake animation for wrong password
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-10px); }
+        40%, 80% { transform: translateX(10px); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
